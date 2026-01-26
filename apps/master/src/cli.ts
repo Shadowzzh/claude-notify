@@ -3,7 +3,6 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cac from 'cac';
-import { pino } from 'pino';
 import { startDaemon } from './daemon.js';
 import { installService } from './install-service.js';
 import { uninstallService } from './uninstall-service.js';

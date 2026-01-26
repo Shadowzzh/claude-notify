@@ -16,12 +16,14 @@
     "start": "node dist/cli.js"
   },
   "dependencies": {
+    "@inquirer/confirm": "^6.0.4",
+    "@inquirer/input": "^5.0.4",
+    "@inquirer/number": "^4.0.4",
     "@task/shared": "workspace:*",
-    "@inquirer/prompts": "^7.2.0",
     "cac": "^6.7.14",
+    "p-retry": "^6.2.0",
     "pino": "^9.6.0",
-    "ssh2": "^1.16.0",
-    "p-retry": "^6.2.0"
+    "ssh2": "^1.16.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

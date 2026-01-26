@@ -7,6 +7,7 @@ import { sendNotification } from './notifier/index.js';
 interface SeenTasks {
   get(agentName: string): Set<string> | undefined;
   set(agentName: string, tasks: Set<string>): void;
+  has(agentName: string): boolean;
 }
 
 export async function processStatusFile(
@@ -42,8 +43,10 @@ export async function processStatusFile(
 
     // 限制每个 agent 最多保存 100 条记录
     if (agentSeen.size > 100) {
-      const oldest = Array.from(agentSeen).values().next().value;
-      agentSeen.delete(oldest);
+      const oldest = Array.from(agentSeen)[0];
+      if (oldest) {
+        agentSeen.delete(oldest);
+      }
     }
 
     saveSeenTasks();

@@ -18,12 +18,23 @@ export async function pushToMaster(config: AgentConfig, payload: TaskStatusPaylo
               return reject(err);
             }
 
-            sftp.writeFile(remotePath, content, (err) => {
-              conn.end();
-              if (err) {
-                return reject(err);
+            // 先创建目录
+            sftp.mkdir(config.master.statusPath, { mode: 0o755 }, (mkdirErr: any) => {
+              // 忽略目录已存在的错误
+              if (mkdirErr && mkdirErr.code !== '4') {
+                // 错误码 4 表示文件已存在
+                conn.end();
+                return reject(mkdirErr);
               }
-              resolve();
+
+              // 写入文件
+              sftp.writeFile(remotePath, content, (writeErr) => {
+                conn.end();
+                if (writeErr) {
+                  return reject(writeErr);
+                }
+                resolve();
+              });
             });
           });
         });
@@ -37,8 +48,6 @@ export async function pushToMaster(config: AgentConfig, payload: TaskStatusPaylo
           host: config.master.host,
           username: config.master.user,
           port: config.master.port || 22,
-          // 使用系统默认的 SSH 密钥和配置
-          prepareCommand: `mkdir -p ${config.master.statusPath}`,
         });
       });
     },
