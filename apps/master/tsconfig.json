@@ -1,10 +1,23 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.json", // 继承根目录配置（项目引用）
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "composite": true
+    "target": "ES2022", // 编译目标为 ES2022
+    "module": "ESNext", // 使用 ES 模块系统
+    "moduleResolution": "bundler", // 打包工具的模块解析策略
+    "lib": ["ES2022"], // 包含 ES2022 的内置 API 类型
+    "strict": true, // 启用所有严格类型检查
+    "skipLibCheck": true, // 跳过第三方库的类型检查（提升速度）
+    "esModuleInterop": true, // 允许默认导入 CommonJS 模块 ⭐
+    "allowSyntheticDefaultImports": true, // 允许从没有默认导出的模块默认导入
+    "forceConsistentCasingInFileNames": true, // 强制文件名大小写一致
+    "resolveJsonModule": true, // 允许导入 .json 文件
+    "declaration": true, // 生成 .d.ts 类型声明文件
+    "declarationMap": true, // 生成声明文件的 source map
+    "sourceMap": true, // 生成 .js.map source map 文件
+    "outDir": "./dist", // 编译输出目录
+    "rootDir": "./src", // 源码根目录
+    "composite": true // 启用项目引用
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "include": ["src/**/*"], // 包含 src 目录下所有文件
+  "exclude": ["node_modules", "dist", "**/*.test.ts"] // 排除这些文件
 }

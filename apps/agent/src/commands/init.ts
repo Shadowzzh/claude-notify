@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import confirm from '@inquirer/prompts/confirm';
-import input from '@inquirer/prompts/input';
-import number from '@inquirer/prompts/number';
+import confirm from '@inquirer/confirm';
+import input from '@inquirer/input';
+import number from '@inquirer/number';
 import { AGENT_CONFIG_DIR, AGENT_CONFIG_FILE, saveAgentConfig } from '@task/shared';
 import type { Logger } from 'pino';
 
@@ -19,19 +19,20 @@ export async function initCommand(logger: Logger): Promise<void> {
 
   const masterHost = await input({
     message: 'Master 主机 (Mac 的 IP 或 hostname):',
-    validate: (v) => v.trim().length > 0 || '请输入主机地址',
+    validate: (v: string) => v.trim().length > 0 || '请输入主机地址',
   });
 
   const masterUser = await input({
     message: 'Master 用户名:',
     default: os.userInfo().username,
-    validate: (v) => v.trim().length > 0 || '请输入用户名',
+    validate: (v: string) => v.trim().length > 0 || '请输入用户名',
   });
 
-  const minDuration = await number({
-    message: '最小任务时长 (秒，低于此值不通知):',
-    default: 300,
-  });
+  const minDuration =
+    (await number({
+      message: '最小任务时长 (秒，低于此值不通知):',
+      default: 300,
+    })) || 300;
 
   const enableNotification = await confirm({
     message: '启用通知?',

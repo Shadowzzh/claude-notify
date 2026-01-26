@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { MASTER_STATUS_DIR, loadMasterConfig } from '@task/shared';
 import { pino } from 'pino';
@@ -27,7 +28,7 @@ async function main() {
   logger.info({ statusDir }, '监控目录');
 
   // 初始化目录
-  await fs.promises.mkdir(statusDir, { recursive: true });
+  await mkdir(statusDir, { recursive: true });
 
   // 加载去重记录
   await loadSeenTasks();

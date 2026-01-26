@@ -15,12 +15,14 @@
   },
   "dependencies": {
     "@task/shared": "workspace:*",
-    "pino": "^9.6.0",
+    "cac": "^6.7.14",
     "chokidar": "^3.6.0",
+    "pino": "^9.6.0",
     "proper-lockfile": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
+    "@types/proper-lockfile": "^4.1.4",
     "tsup": "^8.3.5",
     "typescript": "^5.7.3"
   }
