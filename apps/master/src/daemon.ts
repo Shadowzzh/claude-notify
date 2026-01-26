@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { MASTER_SEEN_FILE, MASTER_STATUS_DIR, loadMasterConfig } from '@task/shared';
+import { MASTER_SEEN_FILE, loadMasterConfig } from '@task/shared';
 import chokidar from 'chokidar';
 import { pino } from 'pino';
-import lockfile from 'proper-lockfile';
 import { processStatusFile } from './processor.js';
 
 const logger = pino({
@@ -38,6 +37,10 @@ function saveSeenTasks(): void {
     for (const [agent, tasks] of seenTasks.entries()) {
       data[agent] = Array.from(tasks);
     }
+    const dir = path.dirname(MASTER_SEEN_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
     fs.writeFileSync(MASTER_SEEN_FILE, JSON.stringify(data, null, 2));
   } catch (error) {
     logger.error({ error }, '保存 seen 记录失败');
@@ -62,7 +65,7 @@ async function scanStatusDir(config: ReturnType<typeof loadMasterConfig>): Promi
 export async function startDaemon(foreground = false): Promise<void> {
   const config = loadMasterConfig();
 
-  logger.info('🔔 Task Master 启动');
+  logger.info('Task Master 启动');
   logger.info({ statusDir: config.statusDir }, '监控目录');
 
   // 初始化目录

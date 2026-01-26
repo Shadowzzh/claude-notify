@@ -71,9 +71,9 @@ async function stopDaemon() {
     execSync('launchctl unload ~/Library/LaunchAgents/com.task-master.plist', {
       stdio: 'inherit',
     });
-    console.log('✅ 守护进程已停止');
+    console.log('守护进程已停止');
   } catch (error) {
-    console.log('ℹ️  服务未运行或已停止');
+    console.log('ℹ️服务未运行或已停止');
   }
 }
 
@@ -81,9 +81,9 @@ async function showStatus() {
   const { execSync } = await import('node:child_process');
   try {
     const output = execSync('launchctl list | grep task-master', { encoding: 'utf-8' });
-    console.log('✅ 守护进程正在运行');
+    console.log('守护进程正在运行');
     console.log(output);
   } catch (error) {
-    console.log('❌ 守护进程未运行');
+    console.log('守护进程未运行');
   }
 }
