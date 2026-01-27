@@ -117,12 +117,24 @@ export function loadMasterConfig(configPath = MASTER_CONFIG_FILE): MasterMainCon
   const content = fs.readFileSync(configPath, 'utf-8');
   const raw = parse(content) as any;
 
-  return {
+  const config: MasterMainConfig = {
     statusDir: raw.status_dir ?? MASTER_STATUS_DIR,
     scanInterval: raw.scan_interval ?? 10000,
     notificationSound: raw.notification_sound ?? 'Glass',
     enableSound: raw.enable_sound ?? true,
   };
+
+  // 加载 statusPrefix 配置
+  if (raw.status_prefix) {
+    config.statusPrefix = {
+      completed: raw.status_prefix.completed,
+      waiting: raw.status_prefix.waiting,
+      error: raw.status_prefix.error,
+      default: raw.status_prefix.default,
+    };
+  }
+
+  return config;
 }
 
 /**
