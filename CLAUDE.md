@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+使用中文回复
+
 ## 项目概述
 
 这是一个 Claude Code 分布式任务完成通知系统,用于在远程机器上运行 Claude Code 时,将任务完成状态通知到本地机器。

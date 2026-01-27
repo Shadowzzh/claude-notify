@@ -64,6 +64,17 @@ export interface MasterMainConfig {
   scanInterval: number;
   notificationSound: string;
   enableSound: boolean;
+  statusPrefix?: StatusPrefixConfig;
+}
+
+/**
+ * 状态前缀配置
+ */
+export interface StatusPrefixConfig {
+  completed?: string;
+  waiting?: string;
+  error?: string;
+  default?: string;
 }
 
 /**
