@@ -6,3 +6,6 @@ export * from './schemas.js';
 
 // Config 工具
 export * from './config.js';
+
+// PID 管理
+export * from './pid.js';
