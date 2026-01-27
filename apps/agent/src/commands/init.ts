@@ -8,7 +8,7 @@ import { AGENT_CONFIG_DIR, AGENT_CONFIG_FILE, saveAgentConfig } from '@task/shar
 import type { Logger } from 'pino';
 
 export async function initCommand(logger: Logger): Promise<void> {
-  console.log('🔔 Claude Code Hook Notify - Agent 初始化\n');
+  console.log('Claude Code Hook Notify - Agent 初始化\n');
 
   const hostname = os.hostname().split('.')[0];
 

@@ -2,7 +2,6 @@
   "files": [],
   "references": [
     { "path": "./packages/shared" },
-    { "path": "./packages/config" },
     { "path": "./apps/agent" },
     { "path": "./apps/master" }
   ]

@@ -1,8 +1,8 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
-import type { TaskStatusPayload } from '@task/shared';
+import type { MasterMainConfig, TaskStatusPayload } from '@task/shared';
 import lockfile from 'proper-lockfile';
-import { sendNotification } from './notifier/index.js';
+import { sendNotification } from '../notifier';
 
 interface SeenTasks {
   get(agentName: string): Set<string> | undefined;
@@ -12,7 +12,7 @@ interface SeenTasks {
 
 export async function processStatusFile(
   filePath: string,
-  config: { statusDir: string; notificationSound: string; enableSound: boolean },
+  config: MasterMainConfig,
   seenTasks: SeenTasks,
   saveSeenTasks: () => void,
   logger: any
