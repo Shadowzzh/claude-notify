@@ -82,7 +82,7 @@ task-master stop
 # 安装为系统服务 (macOS LaunchAgent)
 task-master install-service
 
-# 卸载系统服务
+# 卸载系统服务 (会询问是否删除配置文件)
 task-master uninstall-service
 
 # 查看服务状态
@@ -103,7 +103,8 @@ task-master status
 2. **Master 端 (本地机器)**:
    - 使用 `chokidar` 监听 `~/.task-status/` 目录的文件变化
    - 使用文件锁 (`proper-lockfile`) 防止并发读取
-   - 读取状态文件并发送系统通知 (macOS 使用 `osascript`)
+   - 读取状态文件并发送系统通知
+   - 优先使用 `alerter` 发送通知，不可用时降级到 `osascript`
    - 使用 `seen.json` 记录已处理的任务,防止重复通知
 
 ### 状态管理
@@ -139,9 +140,27 @@ enable_notification = true
 ```toml
 status_dir = "~/.task-status"
 scan_interval = 10000  # 扫描间隔(毫秒)
+
+# 通知声音配置
 notification_sound = "Glass"
 enable_sound = true
+
+# 通知样式配置
+notification_style = "banner"  # "banner" (自动消失) 或 "alert" (需要点击关闭)
+notification_timeout = 5       # 自动消失时长(秒), 仅对 banner 有效
+auto_style = true              # 是否根据任务时长自动选择样式
+long_task_threshold = 300      # 长任务阈值(秒), 超过此时长使用 alert 样式
 ```
+
+**通知功能说明**:
+- 支持两种通知方式: `alerter` (推荐) 和 `osascript` (降级方案)
+- 使用 `alerter` 可获得更好的通知体验:
+  - 持久化通知 (长任务不会自动消失)
+  - 点击通知跳转到项目目录
+  - 通知分组管理
+  - 灵活的超时控制
+- 安装 alerter: `brew install vjeantet/tap/alerter`
+- 如果未安装 alerter, 系统会自动降级使用 macOS 原生的 osascript
 
 ## 关键技术点
 
