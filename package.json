@@ -4,8 +4,8 @@
   "description": "Claude Code 分布式任务完成通知系统",
   "type": "module",
   "bin": {
-    "agent": "./dist/cli/agent.js",
-    "task-master": "./dist/cli/master.js"
+    "agent": "./dist/agent.js",
+    "task-master": "./dist/master.js"
   },
   "files": ["dist"],
   "scripts": {
