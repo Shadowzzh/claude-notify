@@ -6,7 +6,7 @@ import { masterCommands } from './master/commands/index.js';
 const program = new Command();
 
 program
-  .name('cnotify')
+  .name('ccnotify')
   .description('Claude Code 分布式任务完成通知系统')
   .version('1.0.0');
 
