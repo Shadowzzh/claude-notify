@@ -11,7 +11,7 @@
     "format": "biome format --write .",
     "test": "vitest",
     "typecheck": "tsc --build --noEmit",
-    "all": "pnpm format && pnpm  lint && pnpm  typecheck"
+    "all": "pnpm format && pnpm lint && pnpm typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

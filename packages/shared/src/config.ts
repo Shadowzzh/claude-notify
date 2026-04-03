@@ -111,17 +111,29 @@ export function loadMasterConfig(configPath = MASTER_CONFIG_FILE): MasterMainCon
       scanInterval: 10000,
       notificationSound: 'Glass',
       enableSound: true,
+      notificationStyle: 'banner',
+      notificationTimeout: 5,
+      autoStyle: true,
+      longTaskThreshold: 300,
     };
   }
 
   const content = fs.readFileSync(configPath, 'utf-8');
   const raw = parse(content) as any;
 
+  // 展开 status_dir 中的波浪号
+  const rawStatusDir = raw.status_dir ?? MASTER_STATUS_DIR;
+  const statusDir = typeof rawStatusDir === 'string' ? expandPath(rawStatusDir) : rawStatusDir;
+
   const config: MasterMainConfig = {
-    statusDir: raw.status_dir ?? MASTER_STATUS_DIR,
+    statusDir,
     scanInterval: raw.scan_interval ?? 10000,
     notificationSound: raw.notification_sound ?? 'Glass',
     enableSound: raw.enable_sound ?? true,
+    notificationStyle: raw.notification_style ?? 'banner',
+    notificationTimeout: raw.notification_timeout ?? 5,
+    autoStyle: raw.auto_style ?? true,
+    longTaskThreshold: raw.long_task_threshold ?? 300,
   };
 
   // 加载 statusPrefix 配置
