@@ -1,5 +1,5 @@
-import { generateUUID, loadAgentConfig } from '../../shared/index.js';
 import type { Logger } from 'pino';
+import { generateUUID, loadAgentConfig } from '../../shared/index.js';
 import { pushToMaster } from '../ssh.js';
 
 export async function pushCommand(

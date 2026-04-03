@@ -1,5 +1,10 @@
-import { generateUUID, loadAgentConfig, loadAgentState, saveAgentState } from '../../shared/index.js';
 import type { Logger } from 'pino';
+import {
+  generateUUID,
+  loadAgentConfig,
+  loadAgentState,
+  saveAgentState,
+} from '../../shared/index.js';
 import { pushToMaster } from '../ssh.js';
 
 interface StopOptions {

@@ -1,6 +1,6 @@
+import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { PidManager } from '../../shared/pid.js';
-import { execSync } from 'node:child_process';
 
 export async function statusCommand() {
   const pidFile = join(process.env.HOME || '', '.task-master', 'daemon.pid');
