@@ -1,5 +1,5 @@
-import { loadAgentConfig, loadAgentState } from '../../shared/index.js';
 import type { Logger } from 'pino';
+import { loadAgentConfig, loadAgentState } from '../../shared/index.js';
 
 export async function statusCommand(logger: Logger): Promise<void> {
   try {

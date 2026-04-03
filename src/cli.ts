@@ -5,10 +5,7 @@ import { masterCommands } from './master/commands/index.js';
 
 const program = new Command();
 
-program
-  .name('cnotify')
-  .description('Claude Code 分布式任务完成通知系统')
-  .version('1.0.0');
+program.name('ccnotify').description('Claude Code 分布式任务完成通知系统').version('1.0.0');
 
 const agent = program.command('agent').description('Agent 命令 (远程机器)');
 agentCommands(agent);
