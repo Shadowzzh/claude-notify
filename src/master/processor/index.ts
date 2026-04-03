@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
-import type { MasterMainConfig, TaskStatusPayload } from '../../shared/index.js';
 import lockfile from 'proper-lockfile';
+import type { MasterMainConfig, TaskStatusPayload } from '../../shared/index.js';
 import { sendNotification } from '../notifier';
 
 interface SeenTasks {

@@ -9,9 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 这是一个 Claude Code 分布式任务完成通知系统,用于在远程机器上运行 Claude Code 时,将任务完成状态通知到本地机器。
 
 **核心架构:**
-- **Agent (apps/agent)**: 运行在远程机器上,通过 Claude Code Hooks 监听任务状态,并通过 SSH/SFTP 推送状态文件到 Master
-- **Master (apps/master)**: 运行在本地机器上,监听状态文件变化并发送系统通知
-- **Shared (packages/shared)**: 共享的类型定义、配置管理和工具函数
+- **Agent**: 运行在远程机器上,通过 Claude Code Hooks 监听任务状态,并通过 SSH/SFTP 推送状态文件到 Master
+- **Master**: 运行在本地机器上,监听状态文件变化并发送系统通知
+- **Shared**: 共享的类型定义、配置管理和工具函数
 
 ## 常用命令
 
@@ -20,7 +20,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # 安装依赖
 pnpm install
 
-# 构建所有包 (packages -> apps 顺序)
+# 构建项目
 pnpm build
 
 # 开发模式 (watch 模式)
@@ -189,48 +189,33 @@ long_task_threshold = 300      # 长任务阈值(秒), 超过此时长使用 ale
 
 ```
 .
-├── apps/
+├── src/
+│   ├── cli/            # CLI 入口
+│   │   ├── agent.ts    # Agent CLI
+│   │   └── master.ts   # Master CLI
 │   ├── agent/          # Agent 应用 (远程机器)
-│   │   ├── src/
-│   │   │   ├── cli.ts           # CLI 入口
-│   │   │   ├── ssh.ts           # SSH/SFTP 推送逻辑
-│   │   │   └── commands/        # 各种命令实现
-│   │   │       ├── init.ts      # 初始化配置
-│   │   │       ├── stop.ts      # Stop Hook 处理
-│   │   │       ├── pre-ask.ts   # Pre-Ask Hook 处理
-│   │   │       ├── post-ask.ts  # Post-Ask Hook 处理
-│   │   │       ├── push.ts      # 手动推送
-│   │   │       └── status.ts    # 查看状态
-│   │   └── package.json
-│   └── master/         # Master 应用 (本地机器)
-│       ├── src/
-│       │   ├── cli.ts              # CLI 入口
-│       │   ├── daemon.ts           # 守护进程主逻辑
-│       │   ├── processor.ts        # 状态文件处理
-│       │   ├── notifier/           # 通知发送
-│       │   ├── install-service.js  # 安装系统服务
-│       │   └── uninstall-service.js # 卸载系统服务
-│       └── package.json
-└── packages/
-    └── shared/         # 共享代码
-        ├── src/
-        │   ├── types.ts     # 类型定义
-        │   ├── schemas.ts   # Zod 验证模式
-        │   └── config.ts    # 配置管理工具
-        └── package.json
+│   │   ├── commands/   # 各种命令实现
+│   │   │   ├── init.ts      # 初始化配置
+│   │   │   ├── stop.ts      # Stop Hook 处理
+│   │   │   ├── pre-ask.ts   # Pre-Ask Hook 处理
+│   │   │   ├── post-ask.ts  # Post-Ask Hook 处理
+│   │   │   ├── push.ts      # 手动推送
+│   │   │   └── status.ts    # 查看状态
+│   │   └── ssh.ts      # SSH/SFTP 推送逻辑
+│   ├── master/         # Master 应用 (本地机器)
+│   │   ├── commands/   # 各种命令实现
+│   │   ├── daemon/     # 守护进程
+│   │   ├── notifier/   # 通知发送
+│   │   └── processor/  # 状态文件处理
+│   └── shared/         # 共享代码
+│       ├── types.ts    # 类型定义
+│       ├── schemas.ts  # Zod 验证模式
+│       └── config.ts   # 配置管理工具
+├── package.json        # 单包配置
+└── tsconfig.json
 ```
 
 ## 开发注意事项
-
-### Monorepo 结构
-- 使用 pnpm workspace 管理多包
-- 构建顺序: `packages/shared` -> `apps/agent` + `apps/master`
-- 使用 `workspace:*` 引用本地包
-
-### TypeScript 配置
-- 使用 TypeScript Project References
-- 根目录 `tsconfig.json` 定义所有子项目引用
-- 每个子项目有独立的 `tsconfig.json`
 
 ### 构建工具
 - 使用 `tsup` 构建 TypeScript 代码

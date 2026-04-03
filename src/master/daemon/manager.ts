@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { PidManager } from '../../shared/index.js';
 import { pino } from 'pino';
+import { PidManager } from '../../shared/index.js';
 import { runDaemonCore } from './core';
 
 const logger = pino({

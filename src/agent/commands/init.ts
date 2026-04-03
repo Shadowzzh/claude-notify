@@ -4,8 +4,8 @@ import path from 'node:path';
 import confirm from '@inquirer/confirm';
 import input from '@inquirer/input';
 import number from '@inquirer/number';
-import { AGENT_CONFIG_DIR, AGENT_CONFIG_FILE, saveAgentConfig } from '../../shared/index.js';
 import type { Logger } from 'pino';
+import { AGENT_CONFIG_DIR, AGENT_CONFIG_FILE, saveAgentConfig } from '../../shared/index.js';
 
 export async function initCommand(logger: Logger): Promise<void> {
   console.log('Claude Code Hook Notify - Agent 初始化\n');

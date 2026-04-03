@@ -1,6 +1,6 @@
-import type { AgentConfig, TaskStatusPayload } from '../../shared/index.js';
 import pRetry from 'p-retry';
 import { Client } from 'ssh2';
+import type { AgentConfig, TaskStatusPayload } from '../../shared/index.js';
 
 export async function pushToMaster(config: AgentConfig, payload: TaskStatusPayload): Promise<void> {
   const content = JSON.stringify(payload, null, 2);
