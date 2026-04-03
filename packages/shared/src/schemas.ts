@@ -1,5 +1,11 @@
 import { z } from 'zod';
-import type { AgentConfig, BehaviorConfig, MasterConfig, TaskStatusPayload } from './types.js';
+import type {
+  AgentConfig,
+  BehaviorConfig,
+  MasterConfig,
+  MasterMainConfig,
+  TaskStatusPayload,
+} from './types.js';
 import { TaskStatus } from './types.js';
 
 export const MasterConfigSchema: z.ZodType<MasterConfig> = z.object({
@@ -18,6 +24,25 @@ export const AgentConfigSchema: z.ZodType<AgentConfig> = z.object({
   agentName: z.string().min(1),
   master: MasterConfigSchema,
   behavior: BehaviorConfigSchema,
+});
+
+export const MasterMainConfigSchema: z.ZodType<MasterMainConfig> = z.object({
+  statusDir: z.string(),
+  scanInterval: z.number().int().positive(),
+  notificationSound: z.string(),
+  enableSound: z.boolean(),
+  statusPrefix: z
+    .object({
+      completed: z.string().optional(),
+      waiting: z.string().optional(),
+      error: z.string().optional(),
+      default: z.string().optional(),
+    })
+    .optional(),
+  notificationStyle: z.enum(['banner', 'alert']),
+  notificationTimeout: z.number().int().positive(),
+  autoStyle: z.boolean(),
+  longTaskThreshold: z.number().int().positive(),
 });
 
 export const TaskStatusPayloadSchema: z.ZodType<TaskStatusPayload> = z.object({
