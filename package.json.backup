@@ -1,0 +1,37 @@
+{
+  "name": "@zziheng/claude-notify",
+  "version": "1.0.0",
+  "description": "Claude Code 分布式任务完成通知系统",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r --filter=@task/shared build && pnpm -r --filter=!@task/shared build",
+    "dev": "pnpm -r --parallel dev",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest",
+    "all": "pnpm format && pnpm lint:fix && pnpm typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shadowzzh/claude-notify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shadowzzh/claude-notify/issues"
+  },
+  "homepage": "https://github.com/Shadowzzh/claude-notify#readme",
+  "keywords": ["claude", "claude-code", "notification", "task-notify", "ssh", "remote"],
+  "author": "Shadowzzh",
+  "license": "MIT"
+}
