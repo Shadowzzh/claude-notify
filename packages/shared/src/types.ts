@@ -65,6 +65,10 @@ export interface MasterMainConfig {
   notificationSound: string;
   enableSound: boolean;
   statusPrefix?: StatusPrefixConfig;
+  notificationStyle: 'banner' | 'alert';
+  notificationTimeout: number;
+  autoStyle: boolean;
+  longTaskThreshold: number;
 }
 
 /**
