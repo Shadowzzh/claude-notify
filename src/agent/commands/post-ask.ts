@@ -1,5 +1,5 @@
-import { loadAgentState, saveAgentState } from '../../shared/index.js';
 import type { Logger } from 'pino';
+import { loadAgentState, saveAgentState } from '../../shared/index.js';
 
 export async function postAskCommand(logger: Logger): Promise<void> {
   const state = loadAgentState();

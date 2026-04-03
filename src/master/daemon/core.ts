@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { MASTER_SEEN_FILE, type PidManager, loadMasterConfig } from '../../shared/index.js';
 import type { Logger } from 'pino';
 import { pino } from 'pino';
+import { MASTER_SEEN_FILE, type PidManager, loadMasterConfig } from '../../shared/index.js';
 import { processStatusFile } from '../processor';
 import { startPolling } from './polling';
 import { setupWatcher } from './watcher';
